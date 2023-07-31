@@ -70,7 +70,7 @@ export const allowPlacing = (board, ship, x, y) => {
     const [dx, dy] = direction
     const fx = x + ship * dx
     const fy = y + ship * dy
-    if (fx >= board.length || fx < 0 || fy >= board.length || fy < 0) {
+    if (fx > board.length || fx < 0 || fy > board.length || fy < 0) {
       continue
     }
 
