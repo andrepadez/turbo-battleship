@@ -2,17 +2,19 @@ import { useState } from 'react'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { createBoard, randomBoard, SHIPS, isValidBoard } from '@/lib/board'
+import useSocket from '@/useSocket'
 
-function PreGameControls({ board, setBoard }) {
+function PreGameControls({ ships, setShips }) {
   const [remainingShips, setRemainingShips] = useState(SHIPS)
+  const { isConnected } = useSocket()
 
   const clearBoard = () => {
-    setBoard(createBoard())
+    setShips([])
     setRemainingShips(SHIPS)
   }
 
   const randomizeBoard = () => {
-    setBoard(randomBoard())
+    setShips(randomBoard())
     setRemainingShips([])
   }
 
@@ -31,7 +33,7 @@ function PreGameControls({ board, setBoard }) {
         </div>
         <div className="flex items-end justify-between">
           <Button onClick={randomizeBoard}>Random</Button>
-          {isValidBoard(board) && (
+          {!remainingShips.length && (
             <>
               <Button onClick={clearBoard}>Clear</Button>
               <Button onClick={() => {}}>Start Game</Button>

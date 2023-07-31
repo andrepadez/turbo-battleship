@@ -6,20 +6,26 @@ export const TOTAL_SQUARES = SHIPS.reduce((total, ship) => total + ship * ship, 
 
 export const DIRECTIONS = [
   [0, 1],
-  [1, 0],
-  [-1, 0],
   [0, -1],
+  [-1, 0],
+  [1, 0],
 ]
 
 export const createBoard = (size = BOARD_SIZE) =>
-  new Array(size).fill(null).map(line => new Array(size).fill(null))
+  new Array(size).fill(null).map(line => new Array(size).fill(0))
 
 export const randomBoard = (size = BOARD_SIZE) => {
   let board = createBoard(size)
+  const ships = []
   for (let ship of SHIPS) {
-    board = placeShip(board, ship)
+    const theShip = placeShip(board, ship)
+    ships.push(theShip)
+    theShip.positions.forEach(([x, y]) => {
+      board[y][x] = ship
+    })
   }
-  return board
+
+  return ships
 }
 
 export const isValidBoard = board =>
@@ -27,18 +33,35 @@ export const isValidBoard = board =>
 
 export const placeShip = (board, ship) => {
   const size = board.length
-  const startX = ceil(random() * (size - ship))
-  const startY = ceil(random() * (size - ship))
+  const startX = floor(random() * (size + 1 - ship))
+  const startY = floor(random() * (size + 1 - ship))
+
   const allowedDirections = allowPlacing(board, ship, startX, startY)
   if (allowedDirections.length === 0) {
     return placeShip(board, ship)
   }
-  const [dx, dy] = allowedDirections[floor(random() * allowedDirections.length)]
+  const directionIdx = floor(random() * allowedDirections.length)
+  const [dx, dy] = allowedDirections[directionIdx]
   const newBoard = structuredClone(board)
+  const positions = []
   for (let i = 0; i < ship; i++) {
-    newBoard[startX + dx * i][startY + dy * i] = ship
+    positions.push([startY + dy * i, startX + dx * i])
   }
-  return newBoard
+
+  return {
+    length: ship,
+    positions: positions.sort((a, b) => (a[0] > b[0] || a[1] > b[1] ? 1 : -1)),
+    direction: getDirection([dx, dy]),
+  }
+}
+
+const getDirection = tuple => {
+  for (let i = 0; i < DIRECTIONS.length; i++) {
+    const direction = DIRECTIONS[i]
+    if (direction[0] === tuple[0] && direction[1] === tuple[1]) {
+      return i < 2 ? 'horizontal' : 'vertical'
+    }
+  }
 }
 
 export const allowPlacing = (board, ship, x, y) => {

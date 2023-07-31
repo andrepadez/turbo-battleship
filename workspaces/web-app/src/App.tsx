@@ -2,10 +2,12 @@ import { useState } from 'react'
 import { cn } from '@/lib/utils'
 import Board from './components/Board'
 import PreGameControls from './components/PreGameControls'
-import { createBoard, randomBoard, SHIPS, isValidBoard } from './lib/board'
+import { createBoard } from './lib/board'
+import useSocket from './useSocket'
 
 function App() {
-  const [board, setBoard] = useState(createBoard())
+  const { isConnected } = useSocket()
+  const [ships, setShips] = useState([])
 
   return (
     <main>
@@ -13,9 +15,9 @@ function App() {
         <h1>BattleShip</h1>
         {/* Own Board */}
         <div className="grid grid-cols-2 gap-2">
-          <Board board={board} />
+          <Board ships={ships} />
           {/* Pre-Game Controls */}
-          <PreGameControls board={board} setBoard={setBoard} />
+          <PreGameControls ships={ships} setShips={setShips} />
         </div>
       </div>
     </main>
