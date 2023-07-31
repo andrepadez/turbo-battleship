@@ -1,0 +1,26 @@
+{
+  "private": true,
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+  },
+  "devDependencies": {
+    "@turbo/gen": "^1.9.7",
+    "@types/node": "^20.4.5",
+    "autoprefixer": "^10.4.14",
+    "eslint": "^7.32.0",
+    "eslint-config-custom": "*",
+    "postcss": "^8.4.27",
+    "prettier": "^2.5.1",
+    "tailwindcss": "^3.3.3",
+    "turbo": "latest"
+  },
+  "name": "battleship",
+  "packageManager": "npm@9.6.6",
+  "workspaces": [
+    "workspaces/*",
+    "workspaces/packages/*"
+  ]
+}
