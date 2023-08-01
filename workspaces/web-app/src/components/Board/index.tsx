@@ -1,5 +1,5 @@
 import { cn } from '@/lib/utils'
-import { BOARD_SIZE, createBoard } from '@/lib/board'
+import { BOARD_SIZE, createBoard } from 'shared/board'
 import { HorizontalRuler, VerticalRuler } from './Rulers'
 import Ships from './Ships'
 

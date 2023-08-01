@@ -36,6 +36,17 @@ export const randomBoard = (size: number = BOARD_SIZE, ships: [Ship] = SHIPS): [
   return theShips
 }
 
+export const getBoardFromShips = (ships: [Ship]): Board => {
+  const board = createBoard()
+  for (let ship of ships) {
+    for (let position of ship.positions) {
+      const [x, y] = position
+      board[y][x] = ship.length
+    }
+  }
+  return board
+}
+
 export const placeShip = (board: Board, ship: number): Ship => {
   const size = board.length
   const startX = floor(random() * (size + 1 - ship))

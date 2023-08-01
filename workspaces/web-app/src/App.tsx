@@ -2,8 +2,8 @@ import { useState } from 'react'
 import { cn } from '@/lib/utils'
 import Board from './components/Board'
 import PreGameControls from './components/PreGameControls'
-import { createBoard } from './lib/board'
-import useSocket from './useSocket'
+import { createBoard } from 'shared/board'
+import useSocket from 'shared/useSocket'
 
 function App() {
   const { isConnected } = useSocket()

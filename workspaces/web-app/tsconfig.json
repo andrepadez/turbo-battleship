@@ -26,6 +26,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["src"],
+  "include": ["src", "../shared/board.ts", "../shared/useSocket.ts"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

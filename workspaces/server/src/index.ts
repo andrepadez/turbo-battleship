@@ -13,7 +13,7 @@ const io = new Server(server, {
 server.listen(PORT, () => console.log('server listening on port:', PORT))
 
 const sockets = new Set()
-// setInterval(() => console.log('sockets', sockets.size), 1000)
+setInterval(() => console.log('sockets', sockets.size), 1000)
 
 io.on('connection', socket => {
   console.log('user connected', socket.id)

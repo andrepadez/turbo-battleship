@@ -17,12 +17,9 @@ const useSocket = () => {
     return () => {
       socket.off('connect', onConnect)
       socket.off('disconnect', onDisconnect)
-      socket.disconnect()
     }
   }, [])
   return { isConnected }
-
-  return {}
 }
 
 export default useSocket

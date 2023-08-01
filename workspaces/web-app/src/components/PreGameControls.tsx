@@ -1,12 +1,12 @@
 import { useState } from 'react'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
-import { createBoard, randomBoard, SHIPS, isValidBoard } from '@/lib/board'
-import useSocket from '@/useSocket'
+import { createBoard, randomBoard, SHIPS, isValidBoard } from 'shared/board'
+import useSocket from 'shared/useSocket'
 
 function PreGameControls({ ships, setShips }) {
   const [remainingShips, setRemainingShips] = useState(SHIPS)
-  const { isConnected } = useSocket()
+  const { socket } = useSocket()
 
   const clearBoard = () => {
     setShips([])
@@ -33,10 +33,14 @@ function PreGameControls({ ships, setShips }) {
           ))}
         </div>
         <div className="flex items-end justify-between">
-          <Button onClick={randomizeBoard}>Random</Button>
+          <Button variant="secondary" onClick={randomizeBoard}>
+            Random
+          </Button>
           {!remainingShips.length && (
             <>
-              <Button onClick={clearBoard}>Clear</Button>
+              <Button variant="ghost" onClick={clearBoard}>
+                Clear
+              </Button>
               <Button onClick={() => {}}>Start Game</Button>
             </>
           )}
