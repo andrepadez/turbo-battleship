@@ -1,42 +1,47 @@
+export type Board = [[number]]
+export type Orientation = 'horizontal' | 'vertical'
+export type Direction = [0 | 1 | -1, 0 | 1 | -1]
+export type Position = [number, number]
+export type Ship = {
+  length: number
+  positions: Position
+  direction: Orientation
+}
+
 const { floor, ceil, random } = Math
 
 export const BOARD_SIZE = 10
 export const SHIPS = [5, 4, 3, 2, 2, 1, 1]
 export const TOTAL_SQUARES = SHIPS.reduce((total, ship) => total + ship * ship, 0)
 
-export const DIRECTIONS = [
+export const DIRECTIONS: [Directions] = [
   [0, 1],
   [0, -1],
   [-1, 0],
   [1, 0],
 ]
 
-export const createBoard = (size = BOARD_SIZE) =>
+export const createBoard = (size: number = BOARD_SIZE): Board =>
   new Array(size).fill(null).map(line => new Array(size).fill(0))
 
-export const randomBoard = (size = BOARD_SIZE) => {
+export const randomBoard = (size: number = BOARD_SIZE, ships: [Ship] = SHIPS): [Ship] => {
   let board = createBoard(size)
-  const ships = []
-  for (let ship of SHIPS) {
+  const theShips: [Ship] = []
+  for (let ship of ships) {
     const theShip = placeShip(board, ship)
-    ships.push(theShip)
-    theShip.positions.forEach(([x, y]) => {
-      board[y][x] = ship
-    })
+    theShips.push(theShip)
+    theShip.positions.forEach(([x, y]) => (board[y][x] = ship))
   }
 
-  return ships
+  return theShips
 }
 
-export const isValidBoard = board =>
-  board.flat().reduce((total, ship) => total + (ship || 0), 0) === TOTAL_SQUARES
-
-export const placeShip = (board, ship) => {
+export const placeShip = (board: Board, ship: number): Ship => {
   const size = board.length
   const startX = floor(random() * (size + 1 - ship))
   const startY = floor(random() * (size + 1 - ship))
 
-  const allowedDirections = allowPlacing(board, ship, startX, startY)
+  const allowedDirections = allowPlacing(board, ship, [startX, startY])
   if (allowedDirections.length === 0) {
     return placeShip(board, ship)
   }
@@ -51,22 +56,30 @@ export const placeShip = (board, ship) => {
   return {
     length: ship,
     positions: positions.sort((a, b) => (a[0] > b[0] || a[1] > b[1] ? 1 : -1)),
-    direction: getDirection([dx, dy]),
+    direction: getOrientation([dx, dy]),
   }
 }
 
-const getDirection = tuple => {
-  for (let i = 0; i < DIRECTIONS.length; i++) {
-    const direction = DIRECTIONS[i]
-    if (direction[0] === tuple[0] && direction[1] === tuple[1]) {
+const getOrientation = (
+  direction: Direction,
+  directions: [Direction] = DIRECTIONS
+): Orientation => {
+  for (let i = 0; i < directions.length; i++) {
+    const orientation = directions[i]
+    if (orientation[0] === direction[0] && orientation[1] === direction[1]) {
       return i < 2 ? 'horizontal' : 'vertical'
     }
   }
 }
 
-export const allowPlacing = (board, ship, x, y) => {
+export const allowPlacing = (
+  board: Board,
+  ship: number,
+  [x, y]: Position,
+  directions: [Direction] = DIRECTIONS
+): [Position] => {
   const allowed = []
-  for (let direction of DIRECTIONS) {
+  for (let direction of directions) {
     const [dx, dy] = direction
     const fx = x + ship * dx
     const fy = y + ship * dy

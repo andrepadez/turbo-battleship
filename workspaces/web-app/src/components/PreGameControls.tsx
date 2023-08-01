@@ -14,7 +14,8 @@ function PreGameControls({ ships, setShips }) {
   }
 
   const randomizeBoard = () => {
-    setShips(randomBoard())
+    const ships = randomBoard()
+    setShips(ships)
     setRemainingShips([])
   }
 
