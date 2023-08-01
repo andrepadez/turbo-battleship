@@ -2,8 +2,10 @@
   "private": true,
   "scripts": {
     "build": "turbo run build",
-    "dev": "turbo run dev",
-    "test": "turbo run test",
+    "dev": "npm run dev:web & npm run dev:server",
+    "dev:web": "cd workspaces/web-app && npm run dev",
+    "dev:server": "cd workspaces/server && npm run dev",
+    "test": "vitest --environment jsdom",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
