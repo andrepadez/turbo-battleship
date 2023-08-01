@@ -8,6 +8,10 @@ export type Ship = {
   direction: Orientation
 }
 
+const structuredClone = window.structuredClone
+  ? window.structuredClone
+  : data => JSON.parse(JSON.stringify(data))
+
 const { floor, ceil, random } = Math
 
 export const BOARD_SIZE = 10

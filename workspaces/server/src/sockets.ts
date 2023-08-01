@@ -14,6 +14,7 @@ export const setupSocket = (socket: any, io: any) => {
   io.emit('lobby-info', lobbyInfo())
 
   socket.on('create-room', () => {
+    console.log('message create room')
     const roomId = crypto.randomUUID()
     rooms[roomId] = {
       id: roomId,
