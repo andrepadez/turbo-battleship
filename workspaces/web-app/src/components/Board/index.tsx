@@ -3,7 +3,8 @@ import { BOARD_SIZE, createBoard } from 'shared/board'
 import { HorizontalRuler, VerticalRuler } from './Rulers'
 import Ships from './Ships'
 
-function Board({ ships }) {
+function Board({ gameSetup }) {
+  const { ships } = gameSetup
   const board = createBoard()
   return (
     <div>

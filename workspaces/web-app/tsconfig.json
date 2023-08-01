@@ -26,6 +26,12 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["src", "../shared/board.ts", "../shared/useSocket.ts"],
+  "include": [
+    "src",
+    "../shared/board.ts",
+    "../shared/useSocket.ts",
+    "../shared/useGameSetup.ts",
+    "../shared/useLobby.ts"
+  ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

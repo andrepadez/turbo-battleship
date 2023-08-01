@@ -1,4 +1,3 @@
-// import useLobby from '@/useLobby'
 import { Button } from '@/components/ui/button'
 
 const Lobby = ({ lobby }) => {
