@@ -4,7 +4,7 @@ export type Direction = [0 | 1 | -1, 0 | 1 | -1]
 export type Position = [number, number]
 export type Ship = {
   length: number
-  positions: Position
+  positions: Position[]
   direction: Orientation
 }
 
@@ -15,10 +15,10 @@ const structuredClone = window.structuredClone
 const { floor, ceil, random } = Math
 
 export const BOARD_SIZE = 10
-export const SHIPS = [5, 4, 3, 2, 2, 1, 1]
+export const SHIPS: number[] = [5, 4, 3, 2, 2, 1, 1]
 export const TOTAL_SQUARES = SHIPS.reduce((total, ship) => total + ship * ship, 0)
 
-export const DIRECTIONS: [Directions] = [
+export const DIRECTIONS: Direction[] = [
   [0, 1],
   [0, -1],
   [-1, 0],
@@ -26,15 +26,17 @@ export const DIRECTIONS: [Directions] = [
 ]
 
 export const createBoard = (size: number = BOARD_SIZE): Board =>
-  new Array(size).fill(null).map(line => new Array(size).fill(0))
+  new Array(size).fill(null).map(line => new Array(size).fill(0)) as Board
 
-export const randomBoard = (size: number = BOARD_SIZE, ships: [Ship] = SHIPS): [Ship] => {
+export const randomBoard = (size: number = BOARD_SIZE, ships: number[] = SHIPS): Ship[] => {
   let board = createBoard(size)
-  const theShips: [Ship] = []
+  const theShips: Ship[] = []
   for (let ship of ships) {
     const theShip = placeShip(board, ship)
     theShips.push(theShip)
-    theShip.positions.forEach(([x, y]) => (board[y][x] = ship))
+    for (let position of theShip.positions) {
+      board[position[1]][position[0]] = ship
+    }
   }
 
   return theShips
@@ -44,8 +46,7 @@ export const getBoardFromShips = (ships: [Ship]): Board => {
   const board = createBoard()
   for (let ship of ships) {
     for (let position of ship.positions) {
-      const [x, y] = position
-      board[y][x] = ship.length
+      board[position[1]][position[0]] = ship.length
     }
   }
   return board
@@ -61,7 +62,7 @@ export const placeShip = (board: Board, ship: number): Ship => {
     return placeShip(board, ship)
   }
   const directionIdx = floor(random() * allowedDirections.length)
-  const [dx, dy] = allowedDirections[directionIdx]
+  const [dx, dy] = allowedDirections[directionIdx] as Direction
   const newBoard = structuredClone(board)
   const positions = []
   for (let i = 0; i < ship; i++) {
@@ -77,7 +78,7 @@ export const placeShip = (board: Board, ship: number): Ship => {
 
 const getOrientation = (
   direction: Direction,
-  directions: [Direction] = DIRECTIONS
+  directions: Direction[] = DIRECTIONS
 ): Orientation => {
   for (let i = 0; i < directions.length; i++) {
     const orientation = directions[i]
@@ -91,8 +92,8 @@ export const allowPlacing = (
   board: Board,
   ship: number,
   [x, y]: Position,
-  directions: [Direction] = DIRECTIONS
-): [Position] => {
+  directions: Direction[] = DIRECTIONS
+): Position[] => {
   const allowed = []
   for (let direction of directions) {
     const [dx, dy] = direction

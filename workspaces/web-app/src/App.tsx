@@ -6,15 +6,13 @@ import useLobby from 'shared/useLobby'
 
 function App() {
   const lobby = useLobby()
-  const { lobbyInfo = {} } = lobby
-
-  const { room } = lobbyInfo
+  const { lobbyInfo } = lobby
 
   return (
     <main className="flex flex-col h-[100dvh] w-[100dvw]">
       <Header />
       <div className="flex flex-col items-center justify-center flex-1 gap-10">
-        {room ? <GameRoomScreen room={room} /> : <LobbyScreen lobby={lobby} />}
+        {lobbyInfo?.room ? <GameRoomScreen room={lobbyInfo.room} /> : <LobbyScreen lobby={lobby} />}
       </div>
     </main>
   )

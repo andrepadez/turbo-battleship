@@ -10,7 +10,8 @@ const useLobby = () => {
   useEffect(() => {
     const setInfo = info => {
       const foundRoom = Object.entries(info.rooms).find(([id, room]) => {
-        return room.player1 === socket.id || room.player2 === socket.id
+        const { player1, player2 } = room as any
+        return player1 === socket.id || player2 === socket.id
       })
 
       const room = foundRoom && foundRoom[1]
@@ -19,7 +20,7 @@ const useLobby = () => {
 
       const availableRooms = Object.entries(info.rooms).reduce((result, [id]) => {
         const room = info.rooms[id]
-        const { player1, player2 } = room
+        const { player1, player2 } = room as any
         if (player1 && !player2) {
           result.push(info.rooms[id])
         }

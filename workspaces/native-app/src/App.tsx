@@ -8,14 +8,13 @@ import useLobby from 'shared/useLobby'
 
 export default function App() {
   const lobby = useLobby()
-  const { lobbyInfo = {} } = lobby
-  const { room } = lobbyInfo || {}
+  const { lobbyInfo } = lobby
 
   return (
     <SafeAreaView className="flex-1">
       <Header />
       <View className="items-center justify-center flex-1 bg-white">
-        {room ? <GameRoomScreen room={room} /> : <LobbyScreen lobby={lobby} />}
+        {lobbyInfo?.room ? <GameRoomScreen room={lobbyInfo.room} /> : <LobbyScreen lobby={lobby} />}
       </View>
     </SafeAreaView>
   )
