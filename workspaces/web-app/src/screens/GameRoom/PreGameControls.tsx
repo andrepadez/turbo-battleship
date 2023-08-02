@@ -2,21 +2,12 @@ import { useState } from 'react'
 import { cn } from 'shared/cn'
 import { Button } from '@/components/ui/button'
 import useSocket from 'shared/useSocket'
+import usePregame from 'shared/usePregame'
 
 function PreGameControls({ gameSetup }) {
-  const { SHIPS, ships, clearBoard, randomizeBoard } = gameSetup
-  const [remainingShips, setRemainingShips] = useState(SHIPS)
+  const { ships } = gameSetup
+  const { remainingShips, clear, randomize } = usePregame(gameSetup)
   const { socket } = useSocket()
-
-  const clear = () => {
-    clearBoard()
-    setRemainingShips(SHIPS)
-  }
-
-  const randomize = () => {
-    randomizeBoard()
-    setRemainingShips([])
-  }
 
   return (
     <div className="p-3">

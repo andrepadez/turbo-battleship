@@ -21,7 +21,7 @@ const GameRoomScreen = ({ room }) => {
         </View>
       ) : (
         <View>
-          <Text>
+          <Text className="text-center">
             ... waiting for <Text>player2</Text>
           </Text>
         </View>

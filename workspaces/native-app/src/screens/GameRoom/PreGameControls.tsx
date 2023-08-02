@@ -2,21 +2,12 @@ import { useState } from 'react'
 import { View, Text, Button } from 'react-native'
 import { cn } from 'shared/cn'
 import useSocket from 'shared/useSocket'
+import usePregame from 'shared/usePregame'
 
 const PreGameControls = ({ gameSetup }) => {
-  const { SHIPS, ships, clearBoard, randomizeBoard } = gameSetup
-  const [remainingShips, setRemainingShips] = useState(SHIPS)
+  const { ships } = gameSetup
+  const { remainingShips, clear, randomize } = usePregame(gameSetup)
   const { socket } = useSocket()
-
-  const clear = () => {
-    clearBoard()
-    setRemainingShips(SHIPS)
-  }
-
-  const randomize = () => {
-    randomizeBoard()
-    setRemainingShips([])
-  }
 
   return (
     <View className="">
