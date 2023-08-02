@@ -1,4 +1,4 @@
-import crypto from 'node:crypto'
+const crypto = require('node:crypto')
 
 const sockets = new Set()
 const rooms: any = {}

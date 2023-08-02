@@ -6,8 +6,7 @@ import useLobby from 'shared/useLobby'
 
 function App() {
   const lobby = useLobby()
-  const { lobbyInfo } = lobby
-  if (!lobbyInfo) return null
+  const { lobbyInfo = {} } = lobby
 
   const { room } = lobbyInfo
 

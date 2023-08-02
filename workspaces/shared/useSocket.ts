@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { io } from 'socket.io-client'
-const URL = 'http://localhost:8001'
+// const URL = 'http://127.0.0.1:8001'
+const URL = 'https://fly.io/apps/battleship-server'
 const socket = io(URL)
 
 const useSocket = () => {
