@@ -3,6 +3,7 @@
   "scripts": {
     "build": "turbo run build",
     "dev": "npm run dev:web & npm run dev:server",
+    "dev:native": "cd workspaces/native-app && npm start",
     "dev:web": "cd workspaces/web-app && npm run dev",
     "dev:server": "cd workspaces/server && npm run dev",
     "test": "vitest --environment jsdom",

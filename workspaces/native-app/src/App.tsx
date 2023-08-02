@@ -8,9 +8,8 @@ import useLobby from 'shared/useLobby'
 
 export default function App() {
   const lobby = useLobby()
-  const { lobbyInfo } = lobby
-  if (!lobbyInfo) return null
-  const { room } = lobbyInfo
+  const { lobbyInfo = {} } = lobby
+  const { room } = lobbyInfo || {}
 
   return (
     <SafeAreaView className="flex-1">
