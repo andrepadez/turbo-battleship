@@ -39,10 +39,15 @@ const PreGameControls = ({ gameSetup }) => {
       </View>
       <View className="flex-row items-end justify-around">
         <Button title="Random" onPress={randomize} />
-        {!remainingShips.length && (
+        {!remainingShips.length ? (
           <>
             <Button title="Clear" onPress={clear} />
             <Button title="Start Game" onPress={() => {}} />
+          </>
+        ) : (
+          <>
+            <View></View>
+            <View></View>
           </>
         )}
       </View>

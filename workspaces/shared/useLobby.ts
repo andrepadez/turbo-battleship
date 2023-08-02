@@ -35,12 +35,10 @@ const useLobby = () => {
   })
 
   const createRoom = () => {
-    console.log('emitting')
     socket.emit('create-room')
   }
 
   const joinRoom = (id: RoomID) => {
-    console.log('joining room', id)
     socket.emit('join-room', id)
   }
 

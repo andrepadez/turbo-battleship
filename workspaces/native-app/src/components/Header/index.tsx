@@ -5,7 +5,6 @@ import { cn } from 'shared/cn'
 const Header = () => {
   const { isConnected } = useSocket()
 
-  console.log({ isConnected })
   return (
     <View className="">
       <Text className="w-full mt-3 text-xl font-bold text-center">BattleShip</Text>

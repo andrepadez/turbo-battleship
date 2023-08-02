@@ -12,8 +12,6 @@ export default function App() {
   if (!lobbyInfo) return null
   const { room } = lobbyInfo
 
-  console.log(lobbyInfo)
-
   return (
     <SafeAreaView className="flex-1">
       <Header />

@@ -1,3 +1,4 @@
+import { View, Text } from 'react-native'
 import { cn } from 'shared/cn'
 import { BOARD_SIZE, createBoard } from 'shared/board'
 import { HorizontalRuler, VerticalRuler } from './Rulers'
@@ -7,22 +8,22 @@ function Board({ gameSetup }) {
   const { ships } = gameSetup
   const board = createBoard()
   return (
-    <div>
+    <View className="items-center">
       <HorizontalRuler board={board} />
-      <div className="flex">
+      <View className="flex-row">
         <VerticalRuler board={board} />
-        <div className={cn(`border-2 relative border-black  bg-blue-300`)}>
-          <Ships ships={ships} />
+        <View className="relative flex-row bg-blue-300 border-2">
           {board.map((line, idxLine) => (
-            <div key={idxLine} className="grid grid-cols-10">
+            <View key={idxLine} className="">
               {line.map((sq, idxSquare) => (
-                <div key={idxSquare} className={`w-8 h-8 border-[1px]`}></div>
+                <View key={idxSquare} className={`w-8 h-8 border-[1px] border-gray-200`}></View>
               ))}
-            </div>
+            </View>
           ))}
-        </div>
-      </div>
-    </div>
+          <Ships ships={ships} />
+        </View>
+      </View>
+    </View>
   )
 }
 

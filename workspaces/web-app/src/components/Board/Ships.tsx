@@ -1,9 +1,8 @@
 import React from 'react'
-import cx from 'classnames'
 
 const Ships = ({ ships }) => {
   return (
-    <div className="absolute z-1000 w-full h-full">
+    <div className="absolute w-full h-full z-1000">
       <div className="relative w-full h-full">
         {ships.map((ship, idx) => {
           const { length, positions, direction } = ship
@@ -16,8 +15,8 @@ const Ships = ({ ships }) => {
           }
           return (
             <div key={idx}>
-              <div key={idx} className="border-2 absolute bg-gray-500" style={style}>
-                <div className="flex justify-center items-center h-full font-bold text-white">
+              <div key={idx} className="absolute bg-gray-500 border-2" style={style}>
+                <div className="flex items-center justify-center h-full font-bold text-white">
                   {ship.length}
                 </div>
               </div>

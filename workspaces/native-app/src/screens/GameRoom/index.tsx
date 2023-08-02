@@ -8,7 +8,7 @@ const GameRoomScreen = ({ room }) => {
   const playerName = Object.keys(room).find(key => room[key] === socket.id && key)
 
   return (
-    <View className="w-full mt-8 text-center">
+    <View className="w-full text-center">
       <Text className="text-center">
         Welcome, <Text className="font-bold">{playerName}</Text>
       </Text>
@@ -18,8 +18,6 @@ const GameRoomScreen = ({ room }) => {
       {player2 ? (
         <View>
           <Text className="font-bold text-center">...setup your game</Text>
-          <GameSetup />
-          <View className=""></View>
         </View>
       ) : (
         <View>
@@ -28,6 +26,7 @@ const GameRoomScreen = ({ room }) => {
           </Text>
         </View>
       )}
+      {player2 && <GameSetup />}
     </View>
   )
 }
